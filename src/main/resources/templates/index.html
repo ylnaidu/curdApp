@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Display Page</title>
+</head>
+<body>
+<div>
+<fieldset>
+<legend><h2>Search</h2></legend>
+<form th:action="@{/}">
+    Filter: <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}" required />
+    &nbsp;
+    <input type="submit" value="Search" />
+    &nbsp;
+    <input type="button" value="Clear" id="btnClear" onclick="clearSearch()" />
+</form>
+</fieldset>
+
+<br/>
+	<fieldset> 
+	<legend><h2>Result</h2></legend>
+		
+	<table border="1">
+		<thead>
+			<tr>
+				<td>Item Id</td>
+				<td>Item Name</td>
+				<td>Item Price</td>
+				<td>Edit</td>
+				<td>Delete</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="item : ${getAllItems}">
+				<td th:text="${item.id}">Id</td>
+				<td th:text="${item.name}">Name</td>
+				<td th:text="${item.price}">Price</td>
+				<td><a th:href="@{'/edit/' +${item.id}}">Edit</a></td>
+				<td><a th:href="@{'/delete/' +${item.id}}">Delete</a></td>
+			</tr>
+		</tbody>
+	</table>
+	<br/>
+	<h2><a href="new_item">Add Item</a></h2>
+	</fieldset>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    function clearSearch() {
+        window.location = "[[@{/}]]";
+    }
+</script>
